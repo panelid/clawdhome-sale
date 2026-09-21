@@ -4,36 +4,203 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>clawdhome.com</title>
-<meta name="description" content="clawdhome.com is available.">
+<meta name="description" content="clawdhome.com is available for transfer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --ink:#1b1f24; --paper:#faf9f6; --muted:#6b7280; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family: ui-serif, Georgia, "Times New Roman", serif; background:var(--paper); color:var(--ink);
-         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 24px; }
-  .card { max-width:520px; width:100%; text-align:center; }
-  h1 { font-size:clamp(30px,8vw,46px); font-weight:400; letter-spacing:-.01em; }
-  h1 span { color:var(--muted); }
-  p { margin-top:20px; font-size:17px; line-height:1.7; color:#3f4650; }
-  a.btn { display:inline-block; margin-top:32px; font-family:ui-sans-serif,system-ui,sans-serif; font-size:14px;
-          letter-spacing:.04em; color:var(--ink); text-decoration:none; border:1px solid #cfd4da; border-radius:6px;
-          padding:11px 22px; background:#fff; }
-  a.btn:hover { border-color:var(--ink); }
-  footer { margin-top:44px; font-family:ui-sans-serif,system-ui,sans-serif; font-size:12.5px; color:var(--muted); line-height:1.8; }
-  footer a { color:var(--muted); }
+  :root {
+    --bg-gradient: radial-gradient(circle at 50% 0%, #171b26 0%, #0b0d13 100%);
+    --card-bg: rgba(22, 27, 38, 0.65);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --accent-color: #818cf8;
+    --button-bg: #ffffff;
+    --button-text: #0f172a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: #0b0d13;
+    background-image: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Subtle ambient lighting grid */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    width: 100%;
+  }
+
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 48px 40px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 80px var(--accent-glow);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(129, 140, 248, 0.1);
+    border: 1px solid rgba(129, 140, 248, 0.2);
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--accent-color);
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #34d399;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #34d399;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(34px, 7vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  h1 span {
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  p {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .actions {
+    margin-top: 36px;
+  }
+
+  a.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 28px;
+    background: var(--button-bg);
+    color: var(--button-text);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+  }
+
+  a.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+    background: #f8fafc;
+  }
+
+  a.btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  a.btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  footer a:hover {
+    color: var(--text-primary);
+  }
 </style>
 </head>
 <body>
-  <div class="card">
-    <h1>clawdhome<span>.com</span></h1>
-    <p>
-      This domain is currently held but not in use.<br>
-      If it fits something you're building, I'm open to a sensible conversation about transferring it.
-    </p>
-    <a class="btn" href="mailto:soburworks@gmail.com?subject=clawdhome.com">Enquire</a>
-    <footer>
-      Sobur · Jakarta<br>
-      <a href="mailto:soburworks@gmail.com">soburworks@gmail.com</a>
-    </footer>
+  <div class="container">
+    <div class="card">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Available for Acquisition
+      </div>
+      
+      <h1>clawdhome<span>.com</span></h1>
+      
+      <p>
+        This premium domain is currently held and open for private transfer.<br>
+        If it aligns with your project, feel free to reach out directly.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="mailto:sobur@clawdhome.com?subject=Inquiry%20regarding%20clawdhome.com">
+          Make an Inquiry
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <footer>
+        Direct Contact: <a href="mailto:sobur@clawdhome.com">sobur@clawdhome.com</a><br>
+        Owner: Sobur · Jakarta
+      </footer>
+    </div>
   </div>
 </body>
 </html>
